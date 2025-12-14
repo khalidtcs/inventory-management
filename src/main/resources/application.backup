@@ -1,0 +1,47 @@
+# Database Configuration (PostgreSQL)
+quarkus:
+  datasource:
+    db-kind: postgresql
+    username: postgres
+    password: postgres
+    reactive:
+      url: postgresql://localhost:5432/stock_db
+
+  # Hibernate Configuration
+  hibernate-orm:
+    database:
+      generation: update
+    log:
+      sql: true
+
+  # HTTP Configuration
+  http:
+    port: 8080
+    cors: true
+
+  # Logging
+  log:
+    level: INFO
+    category:
+      "com.example.stock":
+        level: DEBUG
+
+# Development mode settings
+"%dev":
+  quarkus:
+    datasource:
+      devservices:
+        enabled: false
+      username: postgres
+      password: postgres
+      reactive:
+        url: postgresql://localhost:5432/stock_db
+
+# Production settings
+"%prod":
+  quarkus:
+    datasource:
+      username: ${DB_USERNAME:postgres}
+      password: ${DB_PASSWORD:postgres}
+      reactive:
+        url: ${DB_URL:postgresql://localhost:5432/stock_db}
